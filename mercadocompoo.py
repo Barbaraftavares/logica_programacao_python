@@ -1,15 +1,15 @@
 import json
 
 class Produto:
-    def __init__(self, id, nome, quantidade, preco):
-        self.id = id
-        self.nome = nome
+    def __init__(self, id, nome, quantidade, precoprodutos):
+        self.nomeproduto = nome
         self.quantidade = quantidade
-        self.preco = preco
+        self.preco = precoprodutos
+        self.id = id
 
 
     def __repr__(self):
-        return f'Id: {self.id} | {self.nome} | Qtd: {self.quantidade} | R$ {self.preco:.2f}'
+        return f'Id: {self.id} | {self.nomeproduto} | Qtd: {self.quantidade} | R$ {self.preco:.2f}'
 
 class Mercado:
     def __init__(self):
@@ -35,6 +35,6 @@ with open(arquivo_json, 'r') as file:
         produto = Produto(item['id'], item['nome'], item['quantidade'], item['preco'])
         mercado.adicionar_produto(produto)
 
-print("Estoque:")
+print("Estoque exibido: ")
 mercado.exibir_estoque()
 print(mercado.valor_total())

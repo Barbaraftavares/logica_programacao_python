@@ -1,16 +1,14 @@
-# Classe Produto
 class Produto:
-    def __init__(self, id, nome, preco):
+    def __init__(self, id, nome_produto, preco_produto):
         self.id = id
-        self.nome = nome
-        self.preco = preco
+        self.nome = nome_produto
+        self.preco = preco_produto
 
     def __repr__(self):
         return f'Id: {self.id} | {self.nome} | R$ {self.preco:.2f}'
 
 
-# Classe Mercado
-class Mercado:
+class Atacadao:
     def __init__(self):
         self.produtos = {
             1: Produto(1, "Café 1kg", 53.00),
@@ -23,22 +21,21 @@ class Mercado:
         return self.produtos.get(id, None)
 
     def exibir_estoque(self):
-        print("\nCatalogo de Produtos:\n")
+        print("\nExibir o catalogo dos produtos:\n")
         for produto in self.produtos:
             print(self.obter_produto(produto))
 
 
-# Classe CaixaDoAtacado
-class CaixaDoAtacado:
+class CaixaDoAtacadao:
     def __init__(self, mercado):
         self.mercado = mercado
 
-    def computarCompra(self, input_string):
-        linhas = input_string.split('\n')
+    def computarCompra(self, input_compra):
+        linhas = input_compra.split('\n')
         metodo_pagamento = linhas[0].strip()
         itens = [linha.split(',') for linha in linhas[1:] if linha.strip()]
 
-        total = 0
+        valor_total = 0
         for item in itens:
             id_produto = int(item[0])
             quantidade = int(item[1])
@@ -47,7 +44,6 @@ class CaixaDoAtacado:
             if produto:
                 preco_total = produto.preco * quantidade
 
-                # Aplicar descontos por quantidade
                 if quantidade > 25:
                     preco_total *= 0.75  # 25% de desconto
                 elif quantidade > 15:
@@ -55,25 +51,22 @@ class CaixaDoAtacado:
                 elif quantidade > 5:
                     preco_total *= 0.90  # 10% de desconto
 
-                total += preco_total
+                valor_total += preco_total
 
-        # Aplicar descontos/acréscimos por método de pagamento
         if metodo_pagamento == "dinheiro":
-            total *= 0.95  # 5% de desconto
+            valor_total *= 0.95  # 5% de desconto
         elif metodo_pagamento == "credito":
-            total *= 1.03  # 3% de acréscimo
+            valor_total *= 1.03  # 3% de acréscimo
 
-        return total
+        return valor_total
 
 
-# Exemplo de uso
-input_string = """credito
+input_compra = """credito
 1,2
 2,1"""
 
-mercado = Mercado()
-#mercado.exibir_estoque()
+mercado = Atacadao()
 
-caixa = CaixaDoAtacado(mercado)
-valor_total = caixa.computarCompra(input_string)
+caixa = CaixaDoAtacadao(mercado)
+valor_total = caixa.computarCompra(input_compra)
 print(f'Valor total: R${valor_total:.2f}')
