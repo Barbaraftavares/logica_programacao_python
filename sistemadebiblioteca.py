@@ -11,7 +11,7 @@ class Biblioteca:
     def __init__(self):
         self.livros = []
 
-    def adicionarlivro(self, livro):
+    def adicionalivro(self, livro):
         if livro in self.livros:
             raise Exception("Livro já existe na biblioteca!")
         self.livros.append(livro)
@@ -44,18 +44,18 @@ def main():
         livro1 = Livro("Livro 1", "Autor 1")
         biblioteca.adicionarlivro(livro1)
         livro2 = Livro("Livro 1", "Autor 1")
-        biblioteca.adicionarlivro(livro2)  # Lança exceção
+        biblioteca.adicionarlivro(livro2)
     except Exception as e:
         print(e)
 
     try:
         biblioteca.emprestarlivro("Livro 1")
-        biblioteca.emprestarlivro("Livro 1")  # Lança exceção
+        biblioteca.emprestarlivro("Livro 1")
     except Exception as e:
         print(e)
 
     try:
-        biblioteca.devolverlivro("Livro 2")  # Lança exceção
+        biblioteca.devolverlivro("Livro 2")
         biblioteca.devolverlivro("Livro 1")
     except Exception as e:
         print(e)

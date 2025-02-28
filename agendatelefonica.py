@@ -13,9 +13,9 @@ class AgendaTelefonica:
     def adicionar_contato(self, contato):
         if contato not in self.contatos:
             self.contatos.append(contato)
-            print("Contato adicionado com sucesso!")
+            print("Contato foi adicionado com sucesso!")
         else:
-            print("Contato já existe na agenda!")
+            print("Contato já existe na sua agenda!")
 
     def remover_contato(self, nome):
         contato_remover = self.buscar_contato(nome)
@@ -36,13 +36,13 @@ class AgendaTelefonica:
         if contato_atualizar:
             self.contatos.remove(contato_atualizar)
             self.contatos.append(novo_contato)
-            print("Contato atualizado com sucesso!")
+            print("Contato foi atualizado com sucesso!")
         else:
-            print("Contato não encontrado na agenda!")
+            print("Contato não foi encontrado na agenda!")
 
     def listar_contatos(self):
         if not self.contatos:
-            print("Agenda vazia!")
+            print("Agenda está vazia!")
         else:
             for contato in self.contatos:
                 print(contato)
@@ -51,13 +51,13 @@ def main():
     agenda = AgendaTelefonica()
     while True:
         print("Agenda Telefônica:")
-        print("1. Adicionar novo contato")
-        print("2. Remover contato")
-        print("3. Buscar contato")
-        print("4. Atualizar contato")
-        print("5. Listar contatos")
+        print("1. Adiciona um novo contato")
+        print("2. Remove um contato")
+        print("3. Busca um contato")
+        print("4. Atualiza o contato")
+        print("5. Lista os contatos")
         print("6. Sair")
-        opcao = input("Escolha uma das opções: ")
+        opcao = input("Escolha uma das seguintes opções: ")
         if opcao == "1":
             nome = input("Digite o nome do contato: ")
             numero_telefone = input("Digite o número de telefone do contato: ")
