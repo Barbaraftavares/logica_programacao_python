@@ -7,56 +7,87 @@ class Livro:
     def __str__(self):
         return f"Livro(titulo={self.titulo}, autor={self.autor}, disponivel={self.disponivel})"
 
+    def __eq__(self, outro):
+        return self.titulo == outro.titulo and self.autor == outro.autor
+
 class Biblioteca:
     def __init__(self):
         self.livros = []
 
-    def adicionalivro(self, livro):
+    def adicionar_livro(self, livro):
         if livro in self.livros:
-            raise Exception("Livro já existe na biblioteca!")
+            raise Exception(f"Livro '{livro.titulo}' já existe na biblioteca!")
+        print(f"Livro '{livro.titulo}' adicionado com sucesso!")
         self.livros.append(livro)
-        print("Livro adicionado com sucesso!")
 
-    def emprestarlivro(self, titulo):
+    def emprestar_livro(self, titulo):
         for livro in self.livros:
             if livro.titulo == titulo:
                 if not livro.disponivel:
-                    raise Exception("Livro não está disponível para ser emprestado!")
+                    raise Exception(f"Livro '{livro.titulo}' não está disponível para ser emprestado!")
+                print(f"Livro '{titulo}' emprestado com sucesso!")
                 livro.disponivel = False
-                print("Livro emprestado com sucesso!")
                 return
-        raise Exception("Livro não encontrado na biblioteca!")
+        raise Exception(f"Livro '{titulo}' não encontrado na biblioteca!")
 
-    def devolverlivro(self, titulo):
+    def devolver_livro(self, titulo):
         for livro in self.livros:
             if livro.titulo == titulo:
                 if livro.disponivel:
-                    raise Exception("Livro já está disponível na biblioteca!")
+                    raise Exception(f"Livro '{titulo}' já está disponível na biblioteca!")
+                print(f"Livro '{titulo}' foi devolvido com sucesso!")
                 livro.disponivel = True
-                print("Livro foi devolvido com sucesso!")
                 return
-        raise Exception("Livro não foi encontrado na biblioteca!")
+        raise Exception(f"Livro '{titulo}' não foi encontrado na biblioteca!")
 
 def main():
     biblioteca = Biblioteca()
-
     try:
+        #Adicionando Livros
         livro1 = Livro("Livro 1", "Autor 1")
-        biblioteca.adicionarlivro(livro1)
-        livro2 = Livro("Livro 1", "Autor 1")
-        biblioteca.adicionarlivro(livro2)
+        livro2 = Livro("Livro 2", "Autor 1")
+        livro3 = Livro("Livro 3", "Autor 1")
+        livro4 = Livro("Livro 4", "Autor 1")
+
+        biblioteca.adicionar_livro(livro1)
+        biblioteca.adicionar_livro(livro2)
+        biblioteca.adicionar_livro(livro3)
+        biblioteca.adicionar_livro(livro4)
+
+        #Tentando adicionar novamente Livro 1
+        novo_livro1 = Livro("Livro 1", "Autor 1")
+        biblioteca.adicionar_livro(novo_livro1)
+    except Exception as e:
+        print(e)
+
+    print("\n**************************\n")
+
+    try:
+        # Emprestando Livros
+        biblioteca.emprestar_livro("Livro 1")
+        biblioteca.emprestar_livro("Livro 3")
+        biblioteca.emprestar_livro("Livro 1")
     except Exception as e:
         print(e)
 
     try:
-        biblioteca.emprestarlivro("Livro 1")
-        biblioteca.emprestarlivro("Livro 1")
+        # Emprestando Livro Inexistente
+        biblioteca.emprestar_livro("Livro 10")
+    except Exception as e:
+        print(e)
+
+    print("\n**************************\n")
+
+    try:
+        #Devolvendo Livros
+        biblioteca.devolver_livro("Livro 1")
+        biblioteca.devolver_livro("Livro 2")
     except Exception as e:
         print(e)
 
     try:
-        biblioteca.devolverlivro("Livro 2")
-        biblioteca.devolverlivro("Livro 1")
+        #Devolvendo Livro Inexistente
+        biblioteca.devolver_livro("Livro 10")
     except Exception as e:
         print(e)
 
